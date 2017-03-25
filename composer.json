@@ -11,16 +11,19 @@
   ],
   "require-dev": {
     "phpspec/phpspec": "^3.0",
-    "nategood/httpful": "*"
+    "requests/test-server": "dev-master"
   },
   "require": {
+    "roave/security-advisories":"dev-master",
+    "rmccue/requests": ">=1.0"
   },
   "config": {
     "bin-dir": "bin"
   },
   "autoload": {
-    "psr-0": {
-      "GooseStudio\\SendOwlAPI\\": "src"
+    "psr-4": {
+      "GooseStudio\\SendOwlAPI\\": "src/",
+      "spec\\GooseStudio\\SendOwlAPI\\": "spec/"
       }
     }
 }

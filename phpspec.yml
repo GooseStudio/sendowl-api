@@ -1,0 +1,4 @@
+suites:
+  SendOwlAPI:
+    namespace: GooseStudio\SendOwlAPI
+    psr4_prefix: GooseStudio\SendOwlAPI
