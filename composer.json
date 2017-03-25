@@ -1,0 +1,26 @@
+{
+  "name": "goose-studio/sendowl-api",
+  "description": "Package for easier Send Owl API integration",
+  "minimum-stability": "dev",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Andreas Nurbo",
+      "email": "andreas@goose.studio"
+    }
+  ],
+  "require-dev": {
+    "phpspec/phpspec": "^3.0"
+    "nategood/httpful": "*"
+  },
+  "require": {
+  },
+  "config": {
+    "bin-dir": "bin"
+  },
+  "autoload": {
+    "psr-0": {
+      "GooseStudio\\SendOwlAPI\\": "src"
+      }
+    }
+}
