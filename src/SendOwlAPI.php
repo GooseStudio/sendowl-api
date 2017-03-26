@@ -5,6 +5,10 @@ namespace GooseStudio\SendOwlAPI;
 use PhpSpec\Exception\Exception;
 use Requests;
 
+/**
+ * Class SendOwlAPI
+ * @package GooseStudio\SendOwlAPI
+ */
 class SendOwlAPI {
 
 	private $url = 'https://www.sendowl.com/api/v1';
@@ -37,6 +41,8 @@ class SendOwlAPI {
 	}
 
 	/**
+	 * Retrieve API Key
+	 *
 	 * @return string
 	 */
 	public function get_key(): string {
@@ -44,6 +50,8 @@ class SendOwlAPI {
 	}
 
 	/**
+	 * Retrieve API Secret
+	 *
 	 * @return string
 	 */
 	public function get_secret(): string {
@@ -71,6 +79,8 @@ class SendOwlAPI {
 	}
 
 	/**
+	 * Retrieve a product
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
