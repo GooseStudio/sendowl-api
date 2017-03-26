@@ -94,4 +94,21 @@ class SendOwlAPI {
 		}
 		throw new Exception( $response->body, $response->status_code );
 	}
+
+	/**
+	 * Deletes a product
+	 *
+	 * @param int $product_id
+	 *
+	 * @return bool
+	 */
+	public function delete_product( int $product_id ) {
+		$headers  = [ 'Accept' => 'application/json' ];
+		$response = Requests::delete( $this->url . '/products/' . $product_id, $headers, $this->options );
+		if ( $response->success ) {
+			return true;
+		}
+
+		return false;
+	}
 }

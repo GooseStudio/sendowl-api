@@ -38,4 +38,11 @@ class SendOwlAPISpec extends ObjectBehavior {
 		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport ] );
 		$this->get_product(1)->shouldReturn(json_decode( $transport->body, true ));
 	}
+
+	public function it_should_delete_product() {
+		$transport       = new MockTransport();
+		$transport->code = '200';
+		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport ] );
+		$this->delete_product(1)->shouldReturn(true);
+	}
 }
