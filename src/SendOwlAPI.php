@@ -33,20 +33,20 @@ class SendOwlAPI {
 		$this->key     = $key;
 		$this->secret  = $secret;
 		$this->options = $options;
-		$this->options['auth'] = array( $this->getKey(), $this->getSecret() );
+		$this->options['auth'] = array( $this->get_key(), $this->get_secret() );
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getKey(): string {
+	public function get_key(): string {
 		return $this->key;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getSecret(): string {
+	public function get_secret(): string {
 		return $this->secret;
 	}
 
@@ -64,4 +64,20 @@ class SendOwlAPI {
 		}
 		throw new Exception( $response->body, $response->status_code );
 	}
+
+	/**
+	 * @param int $product_id
+	 *
+	 * @return array
+	 * @throws Exception
+	 */
+    public function get_product(int $product_id)
+    {
+	    $headers = array('Accept' => 'application/json');
+	    $response = Requests::get( $this->url .'/products/' . $product_id, $headers, $this->options );
+	    if ( $response->success ) {
+		    return json_decode( $response->body, true );
+	    }
+	    throw new Exception( $response->body, $response->status_code );
+    }
 }
