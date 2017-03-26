@@ -19,6 +19,6 @@ class SendOwlAPISpec extends ObjectBehavior {
 		$transport->code = '200';
 		$transport->body = file_get_contents( __DIR__ . '/data/products.json' );
 		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport ] );
-		$this->products()->shouldBeEqualTo( json_decode( $transport->body, true ) );
+		$this->get_products()->shouldBeEqualTo( json_decode( $transport->body, true ) );
 	}
 }

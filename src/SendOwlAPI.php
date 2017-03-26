@@ -56,7 +56,7 @@ class SendOwlAPI {
 	 * @return array
 	 * @throws Exception
 	 */
-	public function products() {
+	public function get_products() {
 		$headers = array('Accept' => 'application/json');
 		$response = Requests::get( $this->url .'/products', $headers, $this->options );
 		if ( $response->success ) {
