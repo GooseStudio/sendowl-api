@@ -2,7 +2,6 @@
 
 namespace GooseStudio\SendOwlAPI;
 
-use PhpSpec\Exception\Exception;
 use Requests;
 
 /**
@@ -65,7 +64,7 @@ class SendOwlAPI {
 	 * @param int $page Default is 1
 	 *
 	 * @return array
-	 * @throws Exception
+	 * @throws SendOwlAPIException
 	 */
 	public function get_products( int $per_page = 10, int $page = 1 ) {
 		$headers     = [ 'Accept' => 'application/json' ];
@@ -75,7 +74,7 @@ class SendOwlAPI {
 		if ( $response->success ) {
 			return json_decode( $response->body, true );
 		}
-		throw new Exception( $response->body, $response->status_code );
+		throw new SendOwlAPIException( $response->body, $response->status_code );
 	}
 
 	/**
@@ -84,7 +83,7 @@ class SendOwlAPI {
 	 * @param int $product_id
 	 *
 	 * @return array
-	 * @throws Exception
+	 * @throws SendOwlAPIException
 	 */
 	public function get_product( int $product_id ) {
 		$headers  = [ 'Accept' => 'application/json' ];
@@ -92,7 +91,7 @@ class SendOwlAPI {
 		if ( $response->success ) {
 			return json_decode( $response->body, true );
 		}
-		throw new Exception( $response->body, $response->status_code );
+		throw new SendOwlAPIException( $response->body, $response->status_code );
 	}
 
 	/**
