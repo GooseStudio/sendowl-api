@@ -110,4 +110,21 @@ class SendOwlAPI {
 
 		return false;
 	}
+
+	/**
+	 * @param int $product_id
+	 * @param array $fields
+	 *
+	 * @return bool
+	 */
+    public function update_product(int $product_id, array $fields)
+    {
+	    $headers  = [ 'Accept' => 'application/json' ];
+	    $response = Requests::put( $this->url . '/products/' . $product_id, $headers, $fields, $this->options );
+	    if ( $response->success ) {
+		    return true;
+	    }
+
+	    return false:
+    }
 }
