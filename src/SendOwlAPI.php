@@ -68,7 +68,9 @@ class SendOwlAPI {
 	 */
 	public function get_products( int $per_page = 10, int $page = 1 ) {
 		$headers     = [ 'Accept' => 'application/json' ];
-		$query_array = [ 'per_page' => $per_page > 0 ?: 10, 'page' => $page >= 1 ?: 1 ];
+		$per_page = $per_page > 0 ? $per_page: 10;
+		$page = $page >= 1 ? $page : 1;
+		$query_array = [ 'per_page' => $per_page, 'page' => $page ];
 		$query       = http_build_query( $query_array );
 		$response    = Requests::get( $this->url . '/products/?' . $query, $headers, $this->options );
 		if ( $response->success ) {
