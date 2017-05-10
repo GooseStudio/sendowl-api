@@ -23,8 +23,12 @@
   },
   "autoload": {
     "psr-4": {
-      "GooseStudio\\SendOwlAPI\\": "src/",
-      "spec\\GooseStudio\\SendOwlAPI\\": "spec/"
+      "GooseStudio\\SendOwlAPI\\": "src/"
       }
+    },
+  "autoload-dev": {
+    "psr-4": {
+      "spec\\GooseStudio\\SendOwlAPI\\": "spec/"
     }
+  }
 }
