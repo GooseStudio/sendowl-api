@@ -129,4 +129,72 @@ class SendOwlAPI {
 
 	    return false;
     }
+
+	/**
+	 * @param int $product_id
+	 * @param string $license_key
+	 *
+	 * @return array
+	 * @throws SendOwlAPIException
+	 */
+    public function get_license_meta_data( int $product_id, string $license_key)
+    {
+	    $headers  = [ 'Accept' => 'application/json' ];
+	    $response = Requests::get( $this->url . '/products/' . $product_id . '/licenses/check_valid?key='.$license_key, $headers, $this->options );
+	    if ( $response->success ) {
+		    return json_decode( $response->body, true );
+	    }
+	    throw new SendOwlAPIException( $response->body, $response->status_code );
+    }
+
+	/**
+	 * @param int $product_id
+	 * @param string $license_key
+	 *
+	 * @return bool
+	 * @throws SendOwlAPIException
+	 */
+    public function license_key_is_valid(int $product_id, string $license_key)
+    {
+    	$license_meta_data = $this->get_license_meta_data($product_id, $license_key);
+    	if (empty($license_meta_data)) {
+    		return false;
+	    }
+	    if ( !isset($license_meta_data[0]['license']['order_refunded']) || true === $license_meta_data[0]['license']['order_refunded']) {
+    		return false;
+	    }
+	    return true;
+    }
+
+	/**
+	 * @param int $product_id
+	 *
+	 * @return array
+	 * @throws SendOwlAPIException
+	 */
+    public function get_licenses_by_product(int $product_id)
+    {
+	    $headers  = [ 'Accept' => 'application/json' ];
+	    $response = Requests::get( $this->url . '/products/' . $product_id . '/licenses/', $headers, $this->options );
+	    if ( $response->success ) {
+		    return json_decode( $response->body, true );
+	    }
+	    throw new SendOwlAPIException( $response->body, $response->status_code );
+    }
+
+	/**
+	 * @param int $product_id
+	 *
+	 * @return mixed
+	 * @throws SendOwlAPIException
+	 */
+    public function get_licenses_by_order(int $product_id)
+    {
+	    $headers  = [ 'Accept' => 'application/json' ];
+	    $response = Requests::get( $this->url . '/products/' . $product_id . '/licenses/', $headers, $this->options );
+	    if ( $response->success ) {
+		    return json_decode( $response->body, true );
+	    }
+	    throw new SendOwlAPIException( $response->body, $response->status_code );
+    }
 }

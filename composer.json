@@ -11,6 +11,7 @@
   ],
   "require-dev": {
     "phpspec/phpspec": "^3.0",
+    "phpspec/prophecy": "~1.0",
     "requests/test-server": "dev-master"
   },
   "require": {
