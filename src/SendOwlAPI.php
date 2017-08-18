@@ -10,8 +10,8 @@ use Requests;
  */
 class SendOwlAPI {
 
-	private $url = 'https://www.sendowl.com/api/v1';
 	private $orders_endpoint = 'https://www.sendowl.com/api/v1_3/orders';
+	private $products_endpoint = 'https://www.sendowl.com/api/v1_2/products';
 	/**
 	 * @var string
 	 */
@@ -73,7 +73,7 @@ class SendOwlAPI {
 		$page = $page >= 1 ? $page : 1;
 		$query_array = [ 'per_page' => $per_page, 'page' => $page ];
 		$query       = http_build_query( $query_array );
-		$response    = Requests::get( $this->url . '/products/?' . $query, $headers, $this->options );
+		$response    = Requests::get( $this->products_endpoint .'/?' . $query, $headers, $this->options );
 		if ( $response->success ) {
 			return json_decode( $response->body, true );
 		}
@@ -90,7 +90,7 @@ class SendOwlAPI {
 	 */
 	public function get_product( int $product_id ) {
 		$headers  = [ 'Accept' => 'application/json' ];
-		$response = Requests::get( $this->url . '/products/' . $product_id, $headers, $this->options );
+		$response = Requests::get( $this->products_endpoint .'/' . $product_id, $headers, $this->options );
 		if ( $response->success ) {
 			return json_decode( $response->body, true );
 		}
@@ -106,7 +106,7 @@ class SendOwlAPI {
 	 */
 	public function delete_product( int $product_id ) {
 		$headers  = [ 'Accept' => 'application/json' ];
-		$response = Requests::delete( $this->url . '/products/' . $product_id, $headers, $this->options );
+		$response = Requests::delete( $this->products_endpoint .'/' . $product_id, $headers, $this->options );
 		if ( $response->success ) {
 			return true;
 		}
@@ -123,7 +123,7 @@ class SendOwlAPI {
     public function update_product(int $product_id, array $fields)
     {
 	    $headers  = [ 'Accept' => 'application/json' ];
-	    $response = Requests::put( $this->url . '/products/' . $product_id, $headers, $fields, $this->options );
+	    $response = Requests::put( $this->products_endpoint .'/' . $product_id, $headers, $fields, $this->options );
 	    if ( $response->success ) {
 		    return true;
 	    }
@@ -141,7 +141,7 @@ class SendOwlAPI {
     public function get_license_meta_data( int $product_id, string $license_key)
     {
 	    $headers  = [ 'Accept' => 'application/json' ];
-	    $response = Requests::get( $this->url . '/products/' . $product_id . '/licenses/check_valid?key='.$license_key, $headers, $this->options );
+	    $response = Requests::get( $this->products_endpoint .'/' . $product_id . '/licenses/check_valid?key='.$license_key, $headers, $this->options );
 	    if ( $response->success ) {
 		    return json_decode( $response->body, true );
 	    }
@@ -176,7 +176,7 @@ class SendOwlAPI {
     public function get_licenses_by_product(int $product_id)
     {
 	    $headers  = [ 'Accept' => 'application/json' ];
-	    $response = Requests::get( $this->url . '/products/' . $product_id . '/licenses/', $headers, $this->options );
+	    $response = Requests::get( $this->products_endpoint .'/' . $product_id . '/licenses/', $headers, $this->options );
 	    if ( $response->success ) {
 		    return json_decode( $response->body, true );
 	    }
@@ -192,7 +192,7 @@ class SendOwlAPI {
     public function get_licenses_by_order(int $product_id)
     {
 	    $headers  = [ 'Accept' => 'application/json' ];
-	    $response = Requests::get( $this->url . '/products/' . $product_id . '/licenses/', $headers, $this->options );
+	    $response = Requests::get( $this->products_endpoint .'/' . $product_id . '/licenses/', $headers, $this->options );
 	    if ( $response->success ) {
 		    return json_decode( $response->body, true );
 	    }
