@@ -11,6 +11,7 @@ use Requests;
 class SendOwlAPI {
 
 	private $url = 'https://www.sendowl.com/api/v1';
+	private $orders_endpoint = 'https://www.sendowl.com/api/v1_3/orders';
 	/**
 	 * @var string
 	 */
@@ -196,5 +197,19 @@ class SendOwlAPI {
 		    return json_decode( $response->body, true );
 	    }
 	    throw new SendOwlAPIException( $response->body, $response->status_code );
+    }
+
+	/**
+	 * @param int $order_id
+	 * @return array
+	 * @throws SendOwlAPIException
+	 */
+	public function get_order( int $order_id ) {
+		$headers  = [ 'Accept' => 'application/json' ];
+		$response = Requests::get( $this->orders_endpoint . '/' . $order_id , $headers, $this->options );
+		if ( $response->success ) {
+			return json_decode( $response->body, true );
+		}
+		throw new SendOwlAPIException( $response->body, $response->status_code );
     }
 }
