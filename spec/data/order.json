@@ -1,0 +1,86 @@
+{
+  "order": {
+    "settled_shipping": null,
+    "created_at": "2011-05-17T06:05:56Z",
+    "dispatched_at": null,
+    "buyer_name": "Test User",
+    "discount": null,
+    "updated_at": "2011-05-17T06:15:13Z",
+    "settled_currency": "GBP",
+    "shipping_address1": null,
+    "shipping_address2": null,
+    "shipping_city": null,
+    "shipping_region": null,
+    "shipping_postcode": null,
+    "shipping_country": "US",
+    "billing_address1": null,
+    "billing_address2": null,
+    "billing_city": null,
+    "billing_region": null,
+    "billing_postcode": null,
+    "billing_country": "US",
+    "settled_handling": null,
+    "access_allowed": true,
+    "cart": {
+      "cart_items": [
+        {
+          "cart_item": {
+            "quantity": 2,
+            "product_id": 1,
+            "price_at_checkout": 19,
+            "valid_until": "2011-06-16T07:15:12Z",
+            "download_attempts": 1
+          }
+        },
+        {
+          "cart_item": {
+            "quantity": 1,
+            "package_id": 3,
+            "price_at_checkout": 19,
+            "valid_until": "2011-06-16T07:15:12Z",
+            "download_attempts": 2
+          }
+        }
+      ],
+      "completed_checkout_at": "2011-05-17T07:15:13Z",
+      "started_checkout_at": "2011-05-17T07:05:56Z",
+      "state": "checked_out",
+      "discount_code": "mycode",
+      "discount_code_used": true
+    },
+    "settled_gateway_fee": "2.08",
+    "settled_affiliate_fee": null,
+    "id": 3101,
+    "gateway_transaction_ids": ["123456789"],
+    "can_market_to_buyer": true,
+    "valid_until": null,
+    "download_attempts": null,
+    "settled_tax": "5.90",
+    "refunded": false,
+    "accounted_tax": null,
+    "gateway": "PayPal",
+    "buyer_email": "testuser@gmail.com",
+    "affiliate_system": null,
+    "download_url": "https:\/\/www.sendowl.com\/orders\/1\/download\/a670abc5e7b55707bc6e169cbce85684",
+    "download_items": [
+      {
+        "download_item": {
+          "name": "Brush schematics",
+          "url": "https://transactions.sendowl.com/orders/3101/download/acdcabf2489d9ba50fc605b14421e831/file?product_id=1",
+          "type": "product"
+        }
+      }
+    ],
+    "state": "complete",
+    "settled_gross": "64.90",
+    "tag": null,
+    "order_custom_checkout_fields":[
+      {"order_custom_checkout_field":
+      {"name":"What t-shirt size would you like?", "value":"Small"}
+      },
+      {"order_custom_checkout_field":
+      {"name":"Can we call you about this order?", "value":"true"}
+      }
+    ]
+  }
+}

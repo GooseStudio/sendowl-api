@@ -106,4 +106,13 @@ class SendOwlAPISpec extends ObjectBehavior {
 		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport] );
 		$this->get_licenses_by_order( 1 )->shouldReturn(json_decode($transport->body, true));
 	}
+
+	public function it_should_retrieve_order_by_id() {
+		$transport       = new MockTransport();
+		$transport->code = '200';
+		$transport->body = file_get_contents( __DIR__ . '/data/order.json' );
+		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport] );
+		$this->get_order( 3101 )->shouldReturn(json_decode($transport->body, true));
+
+	}
 }
