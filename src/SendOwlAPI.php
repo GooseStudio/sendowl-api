@@ -10,8 +10,8 @@ use Requests;
  */
 class SendOwlAPI {
 
-	private $orders_endpoint = 'https://www.sendowl.com/api/v1_3/orders';
-	private $products_endpoint = 'https://www.sendowl.com/api/v1_2/products';
+	private $orders_endpoint = 'https://www.sendowl.com/api/v1.3/orders';
+	private $products_endpoint = 'https://www.sendowl.com/api/v1.2/products';
 	/**
 	 * @var string
 	 */
