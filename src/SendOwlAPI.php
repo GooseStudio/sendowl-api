@@ -173,8 +173,7 @@ class SendOwlAPI {
 	 * @return array
 	 * @throws SendOwlAPIException
 	 */
-    public function get_licenses_by_product(int $product_id)
-    {
+    public function get_licenses_by_product(int $product_id): array {
 	    $headers  = [ 'Accept' => 'application/json' ];
 	    $response = Requests::get( $this->products_endpoint .'/' . $product_id . '/licenses/', $headers, $this->options );
 	    if ( $response->success ) {
@@ -186,11 +185,10 @@ class SendOwlAPI {
 	/**
 	 * @param int $product_id
 	 *
-	 * @return mixed
+	 * @return array
 	 * @throws SendOwlAPIException
 	 */
-    public function get_licenses_by_order(int $product_id)
-    {
+    public function get_licenses_by_order(int $product_id): array {
 	    $headers  = [ 'Accept' => 'application/json' ];
 	    $response = Requests::get( $this->products_endpoint .'/' . $product_id . '/licenses/', $headers, $this->options );
 	    if ( $response->success ) {
@@ -201,15 +199,35 @@ class SendOwlAPI {
 
 	/**
 	 * @param int $order_id
+	 *
 	 * @return array
 	 * @throws SendOwlAPIException
 	 */
-	public function get_order( int $order_id ) {
+	public function get_order( int $order_id ): array {
 		$headers  = [ 'Accept' => 'application/json' ];
 		$response = Requests::get( $this->orders_endpoint . '/' . $order_id , $headers, $this->options );
 		if ( $response->success ) {
 			return json_decode( $response->body, true );
 		}
 		throw new SendOwlAPIException( $response->body, $response->status_code );
+    }
+
+	/**
+	 * @param OrderFilter|null $query
+	 *
+	 * @return array
+	 * @throws SendOwlAPIException
+	 */
+    public function get_orders(OrderFilter $query = null): array {
+	    $headers  = [ 'Accept' => 'application/json' ];
+	    $query_args = '';
+	    if ( null !== $query ) {
+	    	$query_args = '?'.$query->buildQueryArgument();
+	    }
+	    $response = Requests::get( $this->orders_endpoint . '/'.$query_args , $headers, $this->options );
+	    if ( $response->success ) {
+		    return json_decode( $response->body, true );
+	    }
+	    throw new SendOwlAPIException( $response->body, $response->status_code );
     }
 }

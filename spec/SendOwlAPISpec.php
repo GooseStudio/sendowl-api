@@ -2,7 +2,9 @@
 
 namespace spec\GooseStudio\SendOwlAPI;
 
+use GooseStudio\SendOwlAPI\OrderFilter;
 use GooseStudio\SendOwlAPI\SendOwlAPI;
+use GooseStudio\SendOwlAPI\SendOwlAPIException;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -25,7 +27,10 @@ class SendOwlAPISpec extends ObjectBehavior {
 		$transport->code = '200';
 		$transport->body = file_get_contents( __DIR__ . '/data/products.json' );
 		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport ] );
-		$this->get_products()->shouldReturn( json_decode( $transport->body, true ) );
+		try {
+			$this->get_products()->shouldReturn( json_decode( $transport->body, true ) );
+		} catch ( SendOwlAPIException $e ) {
+		}
 	}
 
 	public function it_should_retrieve_products_per_page_and_page() {
@@ -33,7 +38,10 @@ class SendOwlAPISpec extends ObjectBehavior {
 		$transport->code = '200';
 		$transport->body = file_get_contents( __DIR__ . '/data/products.json' );
 		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport ] );
-		$this->get_products(5,1)->shouldReturn( json_decode( $transport->body, true ) );
+		try {
+			$this->get_products( 5, 1 )->shouldReturn( json_decode( $transport->body, true ) );
+		} catch ( SendOwlAPIException $e ) {
+		}
 	}
 
 	public function it_should_retrieve_product() {
@@ -41,7 +49,10 @@ class SendOwlAPISpec extends ObjectBehavior {
 		$transport->code = '200';
 		$transport->body = file_get_contents( __DIR__ . '/data/product.json' );
 		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport ] );
-		$this->get_product(1)->shouldReturn(json_decode( $transport->body, true ));
+		try {
+			$this->get_product( 1 )->shouldReturn( json_decode( $transport->body, true ) );
+		} catch ( SendOwlAPIException $e ) {
+		}
 	}
 
 	public function it_should_delete_product() {
@@ -64,7 +75,10 @@ class SendOwlAPISpec extends ObjectBehavior {
 		$transport->code = '200';
 		$transport->body = file_get_contents( __DIR__ . '/data/licenses.json' );
 		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport] );
-		$this->get_license_meta_data( 1, 'AY3C-7C9E-BC3E-J2MB' )->shouldReturn(json_decode($transport->body, true));
+		try {
+			$this->get_license_meta_data( 1, 'AY3C-7C9E-BC3E-J2MB' )->shouldReturn( json_decode( $transport->body, true ) );
+		} catch ( SendOwlAPIException $e ) {
+		}
 	}
 
 	public function it_should_validate_valid_license_key() {
@@ -72,7 +86,10 @@ class SendOwlAPISpec extends ObjectBehavior {
 		$transport->code = '200';
 		$transport->body = file_get_contents( __DIR__ . '/data/licenses.json' );
 		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport] );
-		$this->license_key_is_valid( 1, 'AY3C-7C9E-BC3E-J2MB' )->shouldReturn(true);
+		try {
+			$this->license_key_is_valid( 1, 'AY3C-7C9E-BC3E-J2MB' )->shouldReturn( true );
+		} catch ( SendOwlAPIException $e ) {
+		}
 	}
 
 	public function it_should_validate_invalid_license_key() {
@@ -80,7 +97,10 @@ class SendOwlAPISpec extends ObjectBehavior {
 		$transport->code = '200';
 		$transport->body = json_encode([]);
 		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport] );
-		$this->license_key_is_valid( 1, 'AY3C-7C9E-BC3E-J2MB' )->shouldReturn(false);
+		try {
+			$this->license_key_is_valid( 1, 'AY3C-7C9E-BC3E-J2MB' )->shouldReturn( false );
+		} catch ( SendOwlAPIException $e ) {
+		}
 	}
 
 	public function it_should_validate_valid_license_key_but_order_refunded() {
@@ -88,7 +108,10 @@ class SendOwlAPISpec extends ObjectBehavior {
 		$transport->code = '200';
 		$transport->body = file_get_contents( __DIR__ . '/data/licenses-refunded.json' );
 		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport] );
-		$this->license_key_is_valid( 1, 'AY3C-7C9E-BC3E-J2MB' )->shouldReturn(false);
+		try {
+			$this->license_key_is_valid( 1, 'AY3C-7C9E-BC3E-J2MB' )->shouldReturn( false );
+		} catch ( SendOwlAPIException $e ) {
+		}
 	}
 
 	public function it_should_retrieve_licenses_for_product() {
@@ -96,7 +119,10 @@ class SendOwlAPISpec extends ObjectBehavior {
 		$transport->code = '200';
 		$transport->body = file_get_contents( __DIR__ . '/data/licenses-many.json' );
 		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport] );
-		$this->get_licenses_by_product( 1 )->shouldReturn(json_decode($transport->body, true));
+		try {
+			$this->get_licenses_by_product( 1 )->shouldReturn( json_decode( $transport->body, true ) );
+		} catch ( SendOwlAPIException $e ) {
+		}
 	}
 
 	public function it_should_retrieve_licenses_for_order() {
@@ -104,7 +130,10 @@ class SendOwlAPISpec extends ObjectBehavior {
 		$transport->code = '200';
 		$transport->body = file_get_contents( __DIR__ . '/data/licenses-many.json' );
 		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport] );
-		$this->get_licenses_by_order( 1 )->shouldReturn(json_decode($transport->body, true));
+		try {
+			$this->get_licenses_by_order( 1 )->shouldReturn( json_decode( $transport->body, true ) );
+		} catch ( SendOwlAPIException $e ) {
+		}
 	}
 
 	public function it_should_retrieve_order_by_id() {
@@ -112,7 +141,31 @@ class SendOwlAPISpec extends ObjectBehavior {
 		$transport->code = '200';
 		$transport->body = file_get_contents( __DIR__ . '/data/order.json' );
 		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport] );
-		$this->get_order( 3101 )->shouldReturn(json_decode($transport->body, true));
+		try {
+			$this->get_order( 3101 )->shouldReturn( json_decode( $transport->body, true ) );
+		} catch ( SendOwlAPIException $e ) {
+		}
 
+	}
+
+	public function it_should_retrieve_orders() {
+		$transport       = new MockTransport();
+		$transport->code = '200';
+		$transport->body = file_get_contents( __DIR__ . '/data/orders.json' );
+		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport] );
+		try {
+			$this->get_orders()->shouldReturn( json_decode( $transport->body, true ) );
+		} catch ( SendOwlAPIException $e ) {
+		}
+	}
+	public function it_should_retrieve_orders_with_filter() {
+		$transport       = new MockTransport();
+		$transport->code = '200';
+		$transport->body = file_get_contents( __DIR__ . '/data/orders.json' );
+		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport] );
+		try {
+			$this->get_orders( new OrderFilter() )->shouldReturn( json_decode( $transport->body, true ) );
+		} catch ( SendOwlAPIException $e ) {
+		}
 	}
 }
