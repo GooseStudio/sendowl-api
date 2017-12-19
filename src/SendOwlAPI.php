@@ -230,4 +230,25 @@ class SendOwlAPI {
 	    }
 	    throw new SendOwlAPIException( $response->body, $response->status_code );
     }
+
+	/**
+	 * Searches for a specific order by buyer email, buyer name, giftee email, giftee name, business name or
+	 * transaction id. This is useful when you know those details but not the order number.
+	 * If you know the order number use the show endpoint below.
+	 * The response format is the same as the index action - that is a set of orders that match the criteria.
+	 * @param string $term
+	 *
+	 * @return mixed
+	 * @throws SendOwlAPIException
+	 */
+    public function get_orders_by_term(string $term)
+    {
+	    $headers  = [ 'Accept' => 'application/json' ];
+	    $query_args = '?term='.$term;
+	    $response = Requests::get( $this->orders_endpoint . '/search'.$query_args , $headers, $this->options );
+	    if ( $response->success ) {
+		    return json_decode( $response->body, true );
+	    }
+	    throw new SendOwlAPIException( $response->body, $response->status_code );
+    }
 }

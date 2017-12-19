@@ -168,4 +168,14 @@ class SendOwlAPISpec extends ObjectBehavior {
 		} catch ( SendOwlAPIException $e ) {
 		}
 	}
+	public function it_should_retrieve_orders_by_term() {
+		$transport       = new MockTransport();
+		$transport->code = '200';
+		$transport->body = file_get_contents( __DIR__ . '/data/orders.json' );
+		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport] );
+		try {
+			$this->get_orders_by_term( 'buyer@example.com')->shouldReturn( json_decode( $transport->body, true ) );
+		} catch ( SendOwlAPIException $e ) {
+		}
+	}
 }
