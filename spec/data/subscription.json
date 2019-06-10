@@ -1,0 +1,29 @@
+{
+  "subscription": {
+    "access_all_products": false,
+    "access_subset_products": true,
+    "created_at": "2013-06-13T13:39:23Z",
+    "custom_field": null,
+    "id": 33,
+    "name": "My newish subscription",
+    "perform_redirect": false,
+    "redirect_url": null,
+    "sell_service": false,
+    "sell_tangible_product": false,
+    "updated_at": "2014-01-10T03:14:30Z",
+    "trial_price": "0.00",
+    "trial_frequency": "day",
+    "trial_no_of_occurrences": 7,
+    "recurring_price": "15.00",
+    "frequency_interval": "month",
+    "frequency_value": 1,
+    "no_of_occurrences": 9,
+    "recurring_type": "fixed",
+    "currency_code": "USD",
+    "instant_buy_url": "https:\/\/transactions.sendowl.com\/subscriptions\/33\/A9071851\/purchase",
+    "components": {
+      "product_ids": [2811]
+    },
+    "drip_items": []
+  }
+}

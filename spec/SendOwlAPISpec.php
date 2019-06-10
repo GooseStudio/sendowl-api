@@ -33,6 +33,17 @@ class SendOwlAPISpec extends ObjectBehavior {
 		}
 	}
 
+	public function it_should_retrieve_subscriptions() {
+		$transport       = new MockTransport();
+		$transport->code = '200';
+		$transport->body = file_get_contents( __DIR__ . '/data/subscriptions.json' );
+		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport ] );
+		try {
+			$this->get_subscriptions()->shouldReturn( json_decode( $transport->body, true ) );
+		} catch ( SendOwlAPIException $e ) {
+		}
+	}
+
 	public function it_should_retrieve_products_per_page_and_page() {
 		$transport       = new MockTransport();
 		$transport->code = '200';
@@ -55,11 +66,29 @@ class SendOwlAPISpec extends ObjectBehavior {
 		}
 	}
 
+	public function it_should_retrieve_subscription() {
+		$transport       = new MockTransport();
+		$transport->code = '200';
+		$transport->body = file_get_contents( __DIR__ . '/data/subscription.json' );
+		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport ] );
+		try {
+			$this->get_subscription( 1 )->shouldReturn( json_decode( $transport->body, true ) );
+		} catch ( SendOwlAPIException $e ) {
+		}
+	}
+
 	public function it_should_delete_product() {
 		$transport       = new MockTransport();
 		$transport->code = '200';
 		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport ] );
 		$this->delete_product(1)->shouldReturn(true);
+	}
+
+	public function it_should_delete_subscription() {
+		$transport       = new MockTransport();
+		$transport->code = '200';
+		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport ] );
+		$this->delete_subscription(1)->shouldReturn(true);
 	}
 
 	public function it_should_update_product() {
@@ -68,6 +97,14 @@ class SendOwlAPISpec extends ObjectBehavior {
 		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport ] );
 		$fields['self_hosted_url'] = 'url';
 		$this->update_product(1, $fields)->shouldReturn(true);
+	}
+
+	public function it_should_update_subscription() {
+		$transport       = new MockTransport();
+		$transport->code = '200';
+		$this->beConstructedWith( 'key', 'secret', [ 'transport' => $transport ] );
+		$fields['access_all_products'] = true;
+		$this->update_subscription(1, $fields)->shouldReturn(true);
 	}
 
 	public function it_should_retrieve_licenses_for_license_key() {

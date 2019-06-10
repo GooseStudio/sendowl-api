@@ -12,6 +12,7 @@ class SendOwlAPI {
 
 	private $orders_endpoint = 'https://www.sendowl.com/api/v1_3/orders';
 	private $products_endpoint = 'https://www.sendowl.com/api/v1_2/products';
+	private $subscriptions_endpoint = 'https://www.sendowl.com/api/v1_3/subscriptions';
 	/**
 	 * @var string
 	 */
@@ -67,7 +68,7 @@ class SendOwlAPI {
 	 * @return array
 	 * @throws SendOwlAPIException
 	 */
-	public function get_products( int $per_page = 10, int $page = 1 ) {
+	public function get_products( int $per_page = 10, int $page = 1 ): array {
 		$headers     = [ 'Accept' => 'application/json' ];
 		$per_page = $per_page > 0 ? $per_page: 10;
 		$page = $page >= 1 ? $page : 1;
@@ -79,6 +80,8 @@ class SendOwlAPI {
 		}
 		throw new SendOwlAPIException( $response->body, $response->status_code );
 	}
+
+
 
 	/**
 	 * Retrieve a product
@@ -104,7 +107,7 @@ class SendOwlAPI {
 	 *
 	 * @return bool
 	 */
-	public function delete_product( int $product_id ) {
+	public function delete_product( int $product_id ): bool {
 		$headers  = [ 'Accept' => 'application/json' ];
 		$response = Requests::delete( $this->products_endpoint .'/' . $product_id, $headers, $this->options );
 		if ( $response->success ) {
@@ -120,8 +123,7 @@ class SendOwlAPI {
 	 *
 	 * @return bool
 	 */
-    public function update_product(int $product_id, array $fields)
-    {
+    public function update_product(int $product_id, array $fields): bool {
 	    $headers  = [ 'Accept' => 'application/json' ];
 	    $response = Requests::put( $this->products_endpoint .'/' . $product_id, $headers, $fields, $this->options );
 	    if ( $response->success ) {
@@ -130,6 +132,79 @@ class SendOwlAPI {
 
 	    return false;
     }
+
+
+	/**
+	 * Retrieves subscriptions
+	 *
+	 * @param int $per_page Default is 10
+	 * @param int $page Default is 1
+	 *
+	 * @return array
+	 * @throws SendOwlAPIException
+	 */
+	public function get_subscriptions( int $per_page = 10, int $page = 1 ): array {
+		$headers     = [ 'Accept' => 'application/json' ];
+		$per_page = $per_page > 0 ? $per_page: 10;
+		$page = $page >= 1 ? $page : 1;
+		$query_array = [ 'per_page' => $per_page, 'page' => $page ];
+		$query       = http_build_query( $query_array );
+		$response    = Requests::get( $this->subscriptions_endpoint .'/?' . $query, $headers, $this->options );
+		if ( $response->success ) {
+			return json_decode( $response->body, true );
+		}
+		throw new SendOwlAPIException( $response->body, $response->status_code );
+	}
+
+	/**
+	 * Retrieve a product
+	 *
+	 * @param int $product_id
+	 *
+	 * @return array
+	 * @throws SendOwlAPIException
+	 */
+	public function get_subscription( int $subscription_id ): array {
+		$headers  = [ 'Accept' => 'application/json' ];
+		$response = Requests::get( $this->subscriptions_endpoint .'/' . $subscription_id, $headers, $this->options );
+		if ( $response->success ) {
+			return json_decode( $response->body, true );
+		}
+		throw new SendOwlAPIException( $response->body, $response->status_code );
+	}
+
+	/**
+	 * Deletes a subscription
+	 *
+	 * @param int $subscription_id
+	 *
+	 * @return bool
+	 */
+	public function delete_subscription( int $subscription_id ): bool {
+		$headers  = [ 'Accept' => 'application/json' ];
+		$response = Requests::delete( $this->subscriptions_endpoint .'/' . $subscription_id, $headers, $this->options );
+		if ( $response->success ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param int $subscription_id
+	 * @param array $fields
+	 *
+	 * @return bool
+	 */
+	public function update_subscription(int $subscription_id, array $fields): bool {
+		$headers  = [ 'Accept' => 'application/json' ];
+		$response = Requests::put( $this->subscriptions_endpoint .'/' . $subscription_id, $headers, $fields, $this->options );
+		if ( $response->success ) {
+			return true;
+		}
+
+		return false;
+	}
 
 	/**
 	 * @param int $product_id
