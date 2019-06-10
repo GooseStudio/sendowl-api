@@ -59,7 +59,7 @@
     "refunded": false,
     "accounted_tax": null,
     "gateway": "PayPal",
-    "buyer_email": "testuser@gmail.com",
+    "buyer_email": "testuser@example.com",
     "affiliate_system": null,
     "download_url": "https:\/\/www.sendowl.com\/orders\/1\/download\/a670abc5e7b55707bc6e169cbce85684",
     "download_items": [
