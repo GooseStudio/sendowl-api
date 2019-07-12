@@ -159,7 +159,7 @@ class SendOwlAPI {
 	/**
 	 * Retrieve a product
 	 *
-	 * @param int $product_id
+	 * @param int $subscription_id
 	 *
 	 * @return array
 	 * @throws SendOwlAPIException
